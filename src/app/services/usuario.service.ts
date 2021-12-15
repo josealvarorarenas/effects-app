@@ -12,7 +12,14 @@ export class UsuarioService {
   constructor( private http: HttpClient ) { }
 
   getUsers(){
-    return this.http.get(`${ this.url }/users?per_page=6`) //hay que retornarlo porque es un observable
+    return this.http.get(`${ this.url }/users?per_page=6&delay=3`) //hay que retornarlo porque es un observable
+    .pipe(
+      map( (resp: any) => resp['data'])
+    );
+  }
+
+  getUsersById( id: string ){
+    return this.http.get(`${ this.url }/users/${ id }`) //hay que retornarlo porque es un observable
     .pipe(
       map( (resp: any) => resp['data'])
     );
